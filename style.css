@@ -39,7 +39,7 @@ a:hover {
 	transition: all 300ms linear;
 }
 .cursor{
-	background-color: #fff;
+	background-color: #000000;
 	height: 0;
 	width: 0;
 	z-index: 99999;
@@ -58,7 +58,7 @@ a:hover {
 	border:none
 }
 .cursor2{
-	border: 2px solid #fff;
+	border: 2px solid #000000;
 	box-shadow: 0 0 22px rgba(255, 255, 255, 0.6);
 }
 .cursor2.hover{
