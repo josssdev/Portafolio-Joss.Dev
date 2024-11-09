@@ -6,8 +6,7 @@
     <link rel="icon" href="JOSS.png"  type="image/png">
     <title>Joss.Dev</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">    <style>
         body {
             font-family: 'Montserrat', sans-serif;
             color: #333;
@@ -612,60 +611,64 @@ footer {
 
     
 
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+   <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script type="text/babel">
-        const LikeButton = () => {
-          const [liked, setLiked] = React.useState(false);
-          const [count, setCount] = React.useState(0);
-      
-          React.useEffect(() => {
-            // Cargar el estado guardado cuando el componente se monta
-            const savedLiked = localStorage.getItem('liked') === 'true';
-            const savedCount = parseInt(localStorage.getItem('count') || '0', 10);
-            setLiked(savedLiked);
-            setCount(savedCount);
-          }, []);
-      
-          const handleLike = () => {
-            const newLiked = !liked;
-            const newCount = newLiked ? count + 1 : count - 1;
-      
-            setLiked(newLiked);
-            setCount(newCount);
-      
-            // Guardar el nuevo estado en localStorage
-            localStorage.setItem('liked', newLiked.toString());
-            localStorage.setItem('count', newCount.toString());
-          };
-      
-          return (
-            <button
-              onClick={handleLike}
-              className="fixed bottom-4 right-4 flex items-center justify-center gap-2 rounded-full bg-white p-3 shadow-lg transition-all hover:bg-gray-100"
-              aria-label={liked ? "Unlike" : "Like"}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill={liked ? "red" : "none"}
-                stroke={liked ? "red" : "currentColor"}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-              </svg>
-              <span className="text-sm font-medium text-gray-700">{count}</span>
-            </button>
-          );
-        };
-      
-        ReactDOM.render(<LikeButton />, document.getElementById('like-button-root'));
-      </script>
-      <div id="like-button-root"></div>
+  const LikeCounter = () => {
+    const [liked, setLiked] = React.useState(false);
+    const [count, setCount] = React.useState(0);
+
+    React.useEffect(() => {
+      const savedLiked = localStorage.getItem('liked') === 'true';
+      const savedCount = parseInt(localStorage.getItem('totalLikes') || '0', 10);
+      setLiked(savedLiked);
+      setCount(savedCount);
+    }, []);
+
+    const handleLike = () => {
+      if (!liked) {
+        const newCount = count + 1;
+        setLiked(true);
+        setCount(newCount);
+        localStorage.setItem('liked', 'true');
+        localStorage.setItem('totalLikes', newCount.toString());
+      }
+    };
+
+    return (
+      <div className="fixed bottom-4 right-4 flex items-center justify-center gap-2 rounded-full bg-white p-3 shadow-lg">
+        <button
+          onClick={handleLike}
+          disabled={liked}
+          className={`flex items-center justify-center rounded-full p-2 transition-colors ${
+            liked ? 'bg-red-100' : 'bg-gray-100 hover:bg-gray-200'
+          }`}
+          aria-label={liked ? "Ya has dado Me gusta" : "Dar Me gusta"}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill={liked ? "red" : "none"}
+            stroke={liked ? "red" : "currentColor"}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+        <span className="text-sm font-medium text-gray-700" aria-live="polite">
+          {count} {count === 1 ? 'Me gusta' : 'Me gustas'}
+        </span>
+      </div>
+    );
+  };
+
+  ReactDOM.render(<LikeCounter />, document.getElementById('like-counter-root'));
+</script>
+<div id="like-counter-root"></div>
 </body>
 </html>
