@@ -352,7 +352,31 @@
             height: 50px;
         }
 
-        
+        .cv-download-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.cv-download-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #000000;
+    color: white;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.cv-download-button:hover {
+    background-color: #333333;
+}
+
+.download-icon {
+    margin-right: 0.5rem;
+}
 
     </style>
 </head>
@@ -371,8 +395,16 @@
     <main>
         <!-- Banner -->
         <section id="portfolio-box">
-            
-            
+            <div class="cv-download-container">
+                <a href="cv .pdf" download class="cv-download-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="download-icon">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Descargar CV
+                </a>
+            </div>
         </section>
         
 
@@ -574,6 +606,17 @@
         </footer>
         
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadButton = document.querySelector('.cv-download-button');
+            
+            downloadButton.addEventListener('click', function(e) {
+                // Puedes agregar aquí lógica adicional si es necesario
+                console.log('Descargando CV...');
+            });
+        });
+    </script>
 
 </body>
 </html>
